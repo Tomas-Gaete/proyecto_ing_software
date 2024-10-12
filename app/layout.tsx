@@ -25,6 +25,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <meta name="apple-mobile-web-app-capable" content="yes" />
+      <meta name="mobile-web-app-capable" content="yes" />
+      <meta name="application-name" content="UAIN'T" />
+      <meta
+        name="apple-mobile-web-app-status-bar-style"
+        media="(prefers-color-scheme: dark)"
+        content="black-translucent"
+      />
+      <meta
+        name="apple-mobile-web-app-status-bar-style"
+        media="(prefers-color-scheme: light)"
+        content="white"
+      />
+      <meta name="theme-color" media="(prefers-color-scheme: light)" content="white" />
+      <meta name="theme-color" media="(prefers-color-scheme: dark)" content="black" />
+
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
