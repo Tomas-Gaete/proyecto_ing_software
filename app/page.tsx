@@ -88,7 +88,7 @@ export default function Home() {
                   {schedule.map((item) => (
                     <li
                       key={item.id}
-                      className="flex items-center p-4 bg-gray-100 dark:bg-zinc-900 dark:border border-zinc-800 rounded-lg overflow-x-scroll"
+                      className="flex items-center p-4 bg-gray-100 dark:bg-zinc-900 dark:border border-zinc-800 rounded-lg overflow-x-auto"
                     >
                       <div className="flex-shrink-0 mr-4">
                         <Clock startTime={item.startTime} />
