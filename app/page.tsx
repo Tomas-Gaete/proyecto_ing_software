@@ -1,0 +1,102 @@
+"use client";
+import Nav from "./components/Nav";
+import { useState, useEffect } from "react";
+
+export default function Home() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [schedule, setSchedule] = useState([
+    { id: 1, name: 'Mathematics', startTime: '09:00', endTime: '10:30', location: 'Room 101' },
+    { id: 2, name: 'Computer Science', startTime: '11:00', endTime: '12:30', location: 'Lab 3' },
+    { id: 3, name: 'Physics', startTime: '14:00', endTime: '15:30', location: 'Room 205' },
+    { id: 4, name: 'English Literature', startTime: '16:00', endTime: '17:30', location: 'Room 302' },
+  ]);
+
+  useEffect(() => {
+    // This effect would typically fetch the day's schedule from an API
+    // For now, we're using the static schedule defined above
+  }, [currentDate]);
+
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString('es-US', { weekday: 'long', month: 'long', day: 'numeric' });
+  };
+
+  return (
+    <div className="h-screen">
+      <Nav />
+      <div className="container mx-auto">
+        <h1 className="text-3xl font-semibold text-center mt-8">
+         Horario Peñalolen
+        </h1>
+        <main className="flex-grow container mx-auto px-4 py-8">
+          <div className="border rounded-lg shadow-md p-6 bg-white dark:bg-gray-950">
+            <div className="border-b pb-4 mb-4">
+              
+              <h3 className="text-gray-500 font-bold text-center mx-0 w-full dark:text-gray-200">{formatDate(currentDate)}</h3>
+             
+            </div>
+            <div>
+              {schedule.length > 0 ? (
+                <ul className="space-y-4">
+                  {schedule.map((item) => (
+                    <li
+                      key={item.id}
+                      className="flex items-center p-4 bg-gray-100 dark:bg-zinc-900 dark:border border-zinc-800 rounded-lg"
+                    >
+                      <div className="flex-shrink-0 mr-4">
+                        <Clock startTime={item.startTime} />
+                      </div>
+                      <div className="flex-grow">
+                        <h3 className="font-semibold">{item.name}</h3>
+                        <p className="text-sm text-gray-500">
+                          {item.startTime} - {item.endTime}
+                        </p>
+                        <p className="text-sm text-gray-500">{item.location}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-center text-gray-500">
+                  No classes scheduled for today.
+                </p>
+              )}
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  );
+}
+
+const Clock = ({ startTime }: { startTime: string }) => {
+  const [hours, minutes] = startTime.split(':').map(Number);
+  const hourDeg = (hours % 12) * 30 + minutes * 0.5; // 360 degrees / 12 hours
+  const minuteDeg = minutes * 6; // 360 degrees / 60 minutes
+
+  return (
+    <svg width="48" height="48" viewBox="0 0 100 100" className="relative stroke-black dark:stroke-white">
+      <circle cx="50" cy="50" r="45" strokeWidth="5" className="fill-white stroke-black dark:stroke-white dark:fill-black " />
+      {/* Minute hand */}
+      <line
+        x1="50"
+        y1="50"
+        x2="50"
+        y2="15"
+        stroke=""
+        strokeWidth="5" // Thicker line for minute hand
+        transform={`rotate(${minuteDeg}, 50, 50)`}
+      />
+      {/* Hour hand */}
+      <line
+        x1="50"
+        y1="50"
+        x2="50"
+        y2="25"
+        strokeWidth="5"
+        transform={`rotate(${hourDeg}, 50, 50)`}
+      />
+    </svg>
+  );
+};
+
