@@ -15,6 +15,11 @@ export interface ActivityInstance extends Activity {
 	eventCategory: ActivityCategory;
 }
 
+export interface DailySchedule {
+	updated: Date;
+	activities: ActivityInstance[];
+}
+
 // Define the Activity categories
 export type ActivityCategory =
 	| "Cátedra"
