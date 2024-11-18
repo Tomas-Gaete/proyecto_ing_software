@@ -1,22 +1,23 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import Typewriter from "../components/Typewriter";
 import { Activity } from "../types/Activity";
 import UserSchedule from "../types/Schedule";
 
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
+import { signIn } from "@/auth";
+import { on } from "events";
 
 const LoginPage: React.FC = () => {
+	const [loading, setLoading] = useState(false);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const router = useRouter()
-
+	const router = useRouter();
 
 	const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		//Aqui mostrar un spinner o algo pa que sepa que esta cargando
-
 
 		/**
 		 *  Juntar el web scraping de la página de la UAI con esta función
@@ -28,16 +29,16 @@ const LoginPage: React.FC = () => {
 		 */
 		async function getUserSchedule(): Promise<UserSchedule> {
 			const rawResponse = `
-_tieneSylabous,Sigla,Sección,Asignatura,Período Académico,Estado,Programa,Detalle
-False,IND665,6,TALLER DE DESARROLLO DE CARRERA,S-SEM. 2024/2,Pendiente,,
-False,ING300,1,TALLER DE INVESTIGACIÓN DIRIGIDA I,S-SEM. 2024/2,Pendiente,,
-True,LID100,1,LIDERAZGO,S-SEM. 2024/2,Pendiente,,
-True,TEI401,3,CAPSTONE PROJECT,S-SEM. 2024/2,Pendiente,,
-True,ING480,1,DISEÑO DE PROCESOS Y SERVICIOS,S-SEM. 2024/2,Pendiente,,
-True,TICS331,1,INGENIERÍA DE SOFTWARE,S-SEM. 2024/2,Pendiente,,
-True,TICS312,1,SISTEMAS OPERATIVOS,S-SEM. 2024/2,Pendiente,,
-True,TICS400,34,CORE: ARTE Y HUMANIDADES,S-SEM. 2024/2,Pendiente,,
-True,TICS413,1,SEGURIDAD EN TI,S-SEM. 2024/2,Pendiente,,
+			_tieneSylabous,Sigla,Sección,Asignatura,Período Académico,Estado,Programa,Detalle
+			False,IND665,6,TALLER DE DESARROLLO DE CARRERA,S-SEM. 2024/2,Pendiente,,
+			False,ING300,1,TALLER DE INVESTIGACIÓN DIRIGIDA I,S-SEM. 2024/2,Pendiente,,
+			True,LID100,1,LIDERAZGO,S-SEM. 2024/2,Pendiente,,
+			True,TEI401,3,CAPSTONE PROJECT,S-SEM. 2024/2,Pendiente,,
+			True,ING480,1,DISEÑO DE PROCESOS Y SERVICIOS,S-SEM. 2024/2,Pendiente,,
+			True,TICS331,1,INGENIERÍA DE SOFTWARE,S-SEM. 2024/2,Pendiente,,
+			True,TICS312,1,SISTEMAS OPERATIVOS,S-SEM. 2024/2,Pendiente,,
+			True,TICS400,34,CORE: ARTE Y HUMANIDADES,S-SEM. 2024/2,Pendiente,,
+			True,TICS413,1,SEGURIDAD EN TI,S-SEM. 2024/2,Pendiente,,
 `;
 
 			const campus = "Peñalolén";
@@ -59,6 +60,21 @@ True,TICS413,1,SEGURIDAD EN TI,S-SEM. 2024/2,Pendiente,,
 			};
 		}
 
+		setLoading(true);
+		const res = await signIn("credentials", {
+			email: email,
+			password: password,
+			redirect: false,
+		});
+		if (res.error) {
+			setLoading(false);
+			//TODO mostrar error
+			return;
+		} else {
+			setLoading(false);
+			//TODO mostrar que inicio sesion correctamente
+		}
+
 		const horario = localStorage.getItem("HU-userSchedule");
 
 		if (horario) {
@@ -73,8 +89,7 @@ True,TICS413,1,SEGURIDAD EN TI,S-SEM. 2024/2,Pendiente,,
 		}
 
 		localStorage.setItem("HU-userSchedule", JSON.stringify(userSchedule));
-		router.push('/schedule')// arreglar la ruta
-
+		router.push("/schedule"); // arreglar la ruta
 	};
 
 	return (
@@ -82,7 +97,6 @@ True,TICS413,1,SEGURIDAD EN TI,S-SEM. 2024/2,Pendiente,,
 			<div className="min-h-screen flex items-center justify-center bg-black">
 				<div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
 					<Typewriter />
-
 					<div>
 						<label
 							htmlFor="email"
