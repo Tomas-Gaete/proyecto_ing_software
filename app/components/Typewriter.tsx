@@ -34,7 +34,7 @@ const Typewriter: React.FC = () => {
 
 		const typingTimeout = setTimeout(handleTyping, typingSpeed);
 		return () => clearTimeout(typingTimeout);
-	}, [charIndex, isDeleting, typingSpeed, currentWordIndex, words]);
+	}, [charIndex, isDeleting, typingSpeed, currentWordIndex]);
 
 	return (
 		<div className="w-full h-full flex justify-center items-center">

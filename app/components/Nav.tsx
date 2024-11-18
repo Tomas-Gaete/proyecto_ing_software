@@ -19,7 +19,7 @@ export default function Nav() {
 					href="/"
 					className="mr-4 block cursor-pointer py-1.5 text-base  dark:text-gray-200 text-slate-800 font-semibold"
 				>
-					Horario UAIN'T
+					Horario UAINT
 				</a>
 				<div className="hidden lg:block"></div>
 				<div className="items-center hidden gap-x-2 lg:flex ">
