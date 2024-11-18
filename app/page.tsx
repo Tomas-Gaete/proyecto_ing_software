@@ -1,65 +1,85 @@
 "use client";
 import Nav from "./components/Nav";
 import { useState, useEffect } from "react";
-import { ActivityCategory, ActivityInstance, DailySchedule } from "./types/Activity";
+import {
+	ActivityCategory,
+	ActivityInstance,
+	DailySchedule,
+} from "./types/Activity";
 import UserSchedule from "./types/Schedule";
 
 export default function Home() {
-	const [currentDate, setCurrentDate] = useState(new Date());
+	const currentDate = new Date();
 	const [schedule, setSchedule] = useState<ActivityInstance[]>([
 		{
 			id: 1,
 			name: "Mathematics",
+			shortName: "MATH 101",
 			startTime: "09:00",
 			endTime: "10:30",
 			building: "A",
 			location: "Room 101",
+			eventCategory: "Cátedra",
 		},
 		{
 			id: 2,
 			name: "Computer Science",
+			shortName: "COMP 101",
 			startTime: "11:00",
 			endTime: "12:30",
 			building: "A",
 			location: "Lab 3",
+			eventCategory: "Cátedra",
 		},
 		{
 			id: 3,
 			name: "Physics",
 			startTime: "14:00",
+			shortName: "PHYS 101",
 			endTime: "15:30",
 			building: "B",
 			location: "Room 205",
+			eventCategory: "Cátedra",
 		},
 		{
 			id: 4,
 			name: "English Literature",
+			shortName: "ENGL 101",
 			startTime: "16:00",
 			endTime: "17:30",
 			building: "C",
 			location: "Room 302",
+			eventCategory: "Cátedra",
 		},
 		{
 			id: 7,
 			name: "English Literature",
+			shortName: "ENGL 101",
 			startTime: "16:00",
 			endTime: "17:30",
 			building: "A",
 			location: "Room 302",
+			eventCategory: "Cátedra",
 		},
 		{
 			id: 5,
 			name: "English Literature",
+			shortName: "ENGL 101",
+			building: "A",
 			startTime: "16:00",
 			endTime: "17:30",
 			location: "Room 302",
+			eventCategory: "Cátedra",
 		},
 		{
 			id: 6,
 			name: "English Literature",
+			shortName: "ENGL 101",
 			startTime: "16:00",
 			endTime: "17:30",
 			location: "Room 302",
+			eventCategory: "Cátedra",
+			building: "A",
 		},
 	]);
 
@@ -141,6 +161,7 @@ Cátedra,"CORE: ARTE Y HUMANIDADES Sec.34 Prof.ALVARADO,M.",2024-10-30,08:30:00,
 
 				if (!userClass) return [];
 				return {
+					id: index,
 					startTime: value[3].slice(0, 5), // trim the seconds
 					endTime: value[4].slice(0, 5),
 					building: value[6],
@@ -176,7 +197,7 @@ Cátedra,"CORE: ARTE Y HUMANIDADES Sec.34 Prof.ALVARADO,M.",2024-10-30,08:30:00,
 				// only use the schedule if it's less than 8 hours old
 				setSchedule(parsedSchedule.activities);
 				return;
-			} 
+			}
 		}
 		//if it didn't return, it means we need to update the schedule
 
@@ -188,8 +209,7 @@ Cátedra,"CORE: ARTE Y HUMANIDADES Sec.34 Prof.ALVARADO,M.",2024-10-30,08:30:00,
 				//TODO: Toast diciendo q hubo un error al actualizar el horario
 			}
 		});
-
-	}, []);
+	}, [currentDate]);
 
 	return (
 		<div className="h-screen">
