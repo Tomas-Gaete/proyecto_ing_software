@@ -11,10 +11,10 @@ export async function GET() {
     const context = await browser.newContext();
     const page = await context.newPage();
 
-    await page.goto("https://mailing20s.s3.amazonaws.com/templtates/hoy_penalolen.html");
+    await page.goto("https://hoy.uai.cl/");
 
     const downloadPromise = page.waitForEvent("download");
-    await page.getByRole("button", { name: "CSV" }).click();
+    await page.getByRole("button", { name: " Descargar Excel" }).click();
     const download = await downloadPromise;
 
     const downloadDir = path.resolve("./public/files");
@@ -42,11 +42,11 @@ const downloadCSVFromPage = async (browserType: BrowserType) => {
   const page = await context.newPage();
 
   // Navigate to the first URL
-  await page.goto("https://mailing20s.s3.amazonaws.com/templtates/hoy_penalolen.html");
+  await page.goto("https://hoy.uai.cl/");
 
   // Wait for the CSV download button and click
   const downloadPromise = page.waitForEvent("download");
-  await page.getByRole("button", { name: "CSV" }).click();
+  await page.getByRole("button", { name: " Descargar Excel" }).click();
   const download = await downloadPromise;
 
   // Save the downloaded file

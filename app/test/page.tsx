@@ -34,9 +34,9 @@ export default function Home() {
 
       {csvUrl && (
         <p>
-          Data scraped successfully! Download the CSV:{" "}
+          Data scraped successfully! Download the file:{" "}
           <a href={csvUrl} className="text-blue-500 underline" download>
-            Download CSV
+            Download Excel file
           </a>
         </p>
       )}
