@@ -3,7 +3,18 @@
 import React, { useState, useEffect } from "react";
 
 const Typewriter: React.FC = () => {
-	const words = ["Bienvenido a", "Welcome to", ""];
+	const words = [
+		"Bienvenido a",  // Spanish
+		"Welcome to",    // English
+		"ようこそ",       // Japanese
+		"Bienvenue à",   // French
+		"Willkommen in", // German
+		"Benvenuto a",   // Italian
+		"欢迎来到",      // Chinese (Simplified)
+		"환영합니다",     // Korean
+		"Добро пожаловать в", // Russian
+		"Bem-vindo ao"   // Portuguese
+	  ];
 	const [currentWordIndex, setCurrentWordIndex] = useState<number>(0);
 	const [text, setText] = useState<string>("");
 	const [isDeleting, setIsDeleting] = useState<boolean>(false);
@@ -27,7 +38,7 @@ const Typewriter: React.FC = () => {
 				setTypingSpeed(200); // Velocidad normal al escribir
 				if (charIndex === currentWord.length) {
 					setIsDeleting(true);
-					setTypingSpeed(10000); // Pausa al completar la palabra
+					setTypingSpeed(5000); // Pausa al completar la palabra
 				}
 			}
 		};
@@ -40,7 +51,7 @@ const Typewriter: React.FC = () => {
 		<div className="w-full h-full flex justify-center items-center">
 			<a href="/">
 				<h2 className="text-2xl font-bold mb-6 text-center text-black hover:scale-105 duration-100">
-					{text} HORARIO UAIN'T
+					{text} <br /> HORARIO UAIN'T
 				</h2>
 			</a>
 		</div>

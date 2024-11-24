@@ -1,4 +1,5 @@
 "use client";
+import { signOut } from "next-auth/react";
 import { useState } from "react";
 
 export default function Nav() {
@@ -37,6 +38,23 @@ export default function Nav() {
 							className="text-white w-full bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-bold rounded-lg text-sm px-3 py-2.5 text-center me-2"
 						>
 							Actualizar Salas Hoy
+						</button>
+						<button onClick={()=>signOut()}>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								width="24"
+								height="24"
+								stroke-width="2"
+							>
+								<path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"></path>
+								<path d="M9 12h12l-3 -3"></path>
+								<path d="M18 15l3 -3"></path>
+							</svg>
 						</button>
 					</div>
 				</div>
@@ -84,6 +102,23 @@ export default function Nav() {
 						</button>
 					</li>
 				</ul>
+				<button onClick={()=>signOut()}>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						strokeLinecap="round"
+						strokeLinejoin="round"
+						width="24"
+						height="24"
+						stroke-width="2"
+					>
+						<path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"></path>
+						<path d="M9 12h12l-3 -3"></path>
+						<path d="M18 15l3 -3"></path>
+					</svg>
+				</button>
 			</div>
 		</nav>
 	);
