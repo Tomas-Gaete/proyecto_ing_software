@@ -9,11 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/xlsx": "^0.0.36",
     "next": "14.2.15",
     "next-auth": "^5.0.0-beta.25",
     "playwright": "^1.49.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/node": "^20",

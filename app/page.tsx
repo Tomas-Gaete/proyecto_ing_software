@@ -1,5 +1,6 @@
 "use client";
 import Nav from "./components/Nav";
+import ExcelTable from "./components/show"
 import { useState, useEffect } from "react";
 import {
 	ActivityCategory,
@@ -229,60 +230,8 @@ Cátedra,"CORE: ARTE Y HUMANIDADES Sec.34 Prof.ALVARADO,M.",2024-10-30,08:30:00,
 							</h6>
 						</div>
 						<div>
-							{schedule.length > 0 ? (
-								<ul className="space-y-4">
-									{schedule.map((item) => (
-										<li
-											key={item.id}
-											className="flex items-center p-4 bg-gray-100 dark:bg-zinc-900 dark:border border-zinc-800 rounded-lg overflow-x-auto"
-										>
-											<div className="flex-shrink-0 mr-4">
-												<Clock startTime={item.startTime} />
-											</div>
-											<div className="flex-grow">
-												<h3 className="font-semibold">{item.name}</h3>
-												<p className="text-sm text-gray-500">
-													{item.startTime} - {item.endTime}
-												</p>
-											</div>
-											<div>
-												<p className="">
-													{(() => {
-														let style;
-														switch (item.building) {
-															case "A":
-																style =
-																	"bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400";
-																break;
-															case "B":
-																style =
-																	"bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-yellow-400 border border-yellow-500";
-																break;
-
-															case "C":
-																style =
-																	"bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-purple-400 border border-purple-500";
-																break;
-
-															default:
-																style =
-																	"bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500";
-																break;
-														}
-														return (
-															<span className={style}>{item.location}</span>
-														);
-													})()}
-												</p>
-											</div>
-										</li>
-									))}
-								</ul>
-							) : (
-								<p className="text-center text-gray-500 dark:text-gray-200">
-									No classes scheduled for today.
-								</p>
-							)}
+							<ExcelTable/>
+						
 						</div>
 					</div>
 				</main>
