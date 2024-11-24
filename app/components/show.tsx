@@ -30,9 +30,6 @@ const ExcelTable: React.FC = () => {
 
   return (
     <div>
-
-
-<Nav />
 			<div className="container mx-auto my-3">
 	
 							
