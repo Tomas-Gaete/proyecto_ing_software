@@ -3,124 +3,86 @@ import * as XLSX from "xlsx";
 import Nav from "../components/Nav";
 
 interface TableData {
-  [key: string]: string | number;
+	[key: string]: string | number;
 }
 
 const ExcelTable: React.FC = () => {
-  const [data, setData] = useState<TableData[]>([]);
+	const [data, setData] = useState<TableData[]>([]);
 
-  useEffect(() => {
-    const fetchExcelData = async () => {
-      try {
-        const filePath = __dirname + "../files/eventos.xlsx"; // Ruta relativa al archivo en `public`
-        const response = await fetch(filePath);
-        const arrayBuffer = await response.arrayBuffer();
-        const workbook = XLSX.read(arrayBuffer, { type: "array" });
-        const sheetName = workbook.SheetNames[0]; // Toma el primer nombre de hoja
-        const worksheet = workbook.Sheets[sheetName];
-        const jsonData: TableData[] = XLSX.utils.sheet_to_json(worksheet);
-        setData(jsonData);
-      } catch (error) {
-        console.error("Error al leer el archivo Excel:", error);
-      }
-    };
+	useEffect(() => {
+		const fetchExcelData = async () => {
+			try {
+				const filePath = __dirname + "../files/eventos.xlsx"; // Ruta relativa al archivo en `public`
+				const response = await fetch(filePath);
+				const arrayBuffer = await response.arrayBuffer();
+				const workbook = XLSX.read(arrayBuffer, { type: "array" });
+				const sheetName = workbook.SheetNames[0]; // Toma el primer nombre de hoja
+				const worksheet = workbook.Sheets[sheetName];
+				const jsonData: TableData[] = XLSX.utils.sheet_to_json(worksheet);
 
-    fetchExcelData();
-  }, []);
+				setData(jsonData);
+			} catch (error) {
+				console.error("Error al leer el archivo Excel:", error);
+			}
+		};
 
-  return (
-    <div>
+		fetchExcelData();
+	}, []);
+
+	return (
+		<div>
 			<div className="container mx-auto my-3">
-	
-							
-								<ul className="space-y-4">
-                  {data.map((row, index) => (
-                    <li key={index} className="flex items-center p-4 bg-gray-100 dark:bg-zinc-900 dark:border border-zinc-800 rounded-lg overflow-x-auto">
-                      
+				<ul className="space-y-4">
+					{data.map((row, index) => (
+						<li
+							key={index}
+							className="flex items-center p-4 bg-gray-100 dark:bg-zinc-900 dark:border border-zinc-800 rounded-lg overflow-x-auto"
+						>
+							<div className="flex-shrink-0 mr-4">
+								<Clock startTime={String(row["Inicio"])} />
+							</div>
+							<div className="flex-grow">
+								<h3 className="font-semibold">{row["Evento"]}</h3>
+								<p className="text-sm text-gray-500">
+									{row["Inicio"]} - {row["Fin"]}
+								</p>
+							</div>
+							<div>
+								<p className="">
+									{(() => {
+										let style;
+										switch (row["Edificio"]) {
+											case "Edificio Pregrado A":
+											case "Edificio A":
+												style =
+													"bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400";
+												break;
+											case "Edificio Pregrado B":
+												style =
+													"bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-yellow-400 border border-yellow-500";
+												break;
 
-                      <div className="flex-shrink-0 mr-4">
-						            <Clock startTime={String(row['Inicio'])} />
+											case "Edificio Postgrado C":
+												style =
+													"bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-purple-400 border border-purple-500";
+												break;
 
-											</div>
-											<div className="flex-grow">
-												<h3 className="font-semibold">{row['Evento']}</h3>
-												<p className="text-sm text-gray-500">
-													{row['Inicio']} - {row['Fin']}
-												</p>
-											</div>
-                      <div>
-												<p className="">
-													{(() => {
-														let style;
-														switch (row['Edificio']) {
-															case "Edificio Pregrado A":
-															case "Edificio A":
-																style =
-																	"bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400";
-																break;
-															case "Edificio Pregrado B":
-																style =
-																	"bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-yellow-400 border border-yellow-500";
-																break;
-
-															case "Edificio Postgrado C":
-																style =
-																	"bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-purple-400 border border-purple-500";
-																break;
-
-															default:
-																style =
-																	"bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500";
-																break;
-														}
-														return (
-															<span className={style}>{row['Sala']}</span>
-                              
-														);
-													})()}
-                          		<p className="text-sm text-gray-500">
-													{row['Campus']}
-												</p>
-												</p>
-											</div>
-
-
-
-
-                      
-                    </li>
-                  ))}
-									
-								</ul>
-						
-						</div>
-					</div>
-			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-			
-
-
-
-  );
+											default:
+												style =
+													"bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500";
+												break;
+										}
+										return <span className={style}>{row["Sala"]}</span>;
+									})()}
+									<p className="text-sm text-gray-500">{row["Campus"]}</p>
+								</p>
+							</div>
+						</li>
+					))}
+				</ul>
+			</div>
+		</div>
+	);
 };
 
 const Clock = ({ startTime }: { startTime: string }) => {

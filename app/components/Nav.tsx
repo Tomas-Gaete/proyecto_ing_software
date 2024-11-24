@@ -1,7 +1,6 @@
 "use client";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
-
 export default function Nav() {
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -10,7 +9,6 @@ export default function Nav() {
 	};
 
 	const updateDaySchedule = async () => {
-		// Update the room's schedule
 	};
 
 	return (
@@ -39,7 +37,7 @@ export default function Nav() {
 						>
 							Actualizar Salas Hoy
 						</button>
-						<button onClick={()=>signOut()}>
+						<button onClick={() => signOut()}>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								viewBox="0 0 24 24"
@@ -102,7 +100,7 @@ export default function Nav() {
 						</button>
 					</li>
 				</ul>
-				<button onClick={()=>signOut()}>
+				<button onClick={() => signOut()}>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						viewBox="0 0 24 24"
