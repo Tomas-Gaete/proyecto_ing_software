@@ -17,6 +17,7 @@ export default function Home() {
 	const router = useRouter();
 	const currentDate = new Date();
 	const [schedule, setSchedule] = useState<ActivityInstance[]>([]);
+	const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
 
 	useEffect(() => {
 		/**
@@ -88,11 +89,12 @@ export default function Home() {
 		if (dailySchedule) {
 			const parsedSchedule: DailySchedule = JSON.parse(dailySchedule);
 			const lastUpdated = new Date(parsedSchedule.updated);
+			setLastUpdated(lastUpdated);
 			const diff = currentDate.getTime() - lastUpdated.getTime();
 			const diffHours = Math.floor(diff / (1000 * 60 * 60));
 			if (diffHours <= 8) {
-				//console.log("Nice Schedule");
-				//return;
+				console.log("Using cached schedule");
+				return;
 			}
 		}
 		console.log("Updating schedule");
@@ -151,7 +153,17 @@ export default function Home() {
 								{formatDate(currentDate)}
 							</h3>
 							<h6 className="text-center text-sm mx-0 w-full text-zinc-500">
-								Última actualizacíon hace: Platanito
+								Actualizado hace:{" "}
+								{lastUpdated
+									? `${Math.floor(
+											(new Date().getTime() - lastUpdated.getTime()) /
+												(1000 * 60 * 60)
+									  )} horas ${Math.floor(
+											((new Date().getTime() - lastUpdated.getTime()) %
+												(1000 * 60 * 60)) /
+												(1000 * 60)
+									  )} minutos`
+									: ""}
 							</h6>
 						</div>
 						<div>
