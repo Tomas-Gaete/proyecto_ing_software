@@ -28,7 +28,7 @@ export const authenticateWithIntranet = async (credentials: any) => {
 		await locator.waitFor();
 
 		// Extract table data within the located element
-		const tableData = await locator.evaluate((element) => {
+		const tableData = await locator.evaluate((element: any) => {
 			const table = element.querySelector("table.rgMasterTable"); // Adjust the selector if the table is not directly within this element
 			if (!table) {
 				return []; // Return an empty array if the table is not found
@@ -50,7 +50,7 @@ export const authenticateWithIntranet = async (credentials: any) => {
 			return false;
 		} else {
 			// Convert table data to CSV format
-			const csvContent = tableData.map((row) => row.join(",")).join("\n");
+			const csvContent = tableData.map((row: any) => row.join(",")).join("\n");
 
 			return csvContent;
 		}
